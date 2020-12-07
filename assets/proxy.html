@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+
+</head>
+<body>
+    <script src="https://unpkg.com/fast-levenshtein@2.0.6/levenshtein.js"></script>
+    <script>
+        const target = {
+            init: "git init",
+            status: "git status",
+            commit: "git commit"
+        }
+
+         
+        const handler = {
+          get(obj,prop){
+            if(prop in obj){
+              return obj[prop]
+              }
+
+              const sugerencia = Object.keys(obj).find(key => {
+            return Levenshtein.get(key, prop) <= 3;
+            })
+
+          if(sugerencia){
+             console.log(`${prop} no se encontro. querras decir  ${sugerencia}? `)
+
+           }
+
+           return obj[prop]
+         }
+        }         
+          
+          const p = new Proxy(target,handler)
+
+    </script>
+</body>
+</html>
