@@ -5,59 +5,54 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+ 
+    
 </head>
 <body>
     <script>
-        let kabron ={
-    name: "imbcil",
-}
-
-
-function* generate()
-{
-    console.log("Start")
-    yield 1;
-    yield 2;
-    console.log("End")
-
-}
-
-const gen = generate()
-console.log(gen.next())
-console.log(gen.next())
-
-
-
-function* idmaker()
-{
-    let id = 1;
-    while (true){
-        yield id
-        id = id+ 1;
-    }
-}
-
-const id = idmaker();
-console.log(id.next())
-
-
-function* vago()
-{
-    let a = 1;
-    let b = 1;
-    while (true)
+     function* simpleGenerator()
     {
-        const nextNumber = a  + b;
-        a = b;
-        b =  nextNumber;
-        yield nextNumber;
+        console.log("inicio")
+        yield 1
+        yield 2
+        console.log("fin")
     }
-}
+    function* idMaker()
+    {
+        let id= 1;
+        while(true){
+            yield id;
+            id++
+        }
+    }
+    function* idMakerReset()
+    {
+        let id= 1;
+        let reset
+        while(true){
+           reset=  yield id;
+            if(reset){
+                id= 1;
+            }else{
+                id = id + 1;
+            }
+        }
+    }
+    function* fibonacci(){
+        let a = 1;
+        let b = 1;
+        while(true){
+            const nextNumber = a + b
+            a = b;
+            b = nextNumber;
+            yield nextNumber;
+        }
+    }
+    const gen = simpleGenerator();
 
-const vaga = vago();
-
+    const id = idMaker();
+    const idreset = idMakerReset();
+    const versace = fibonacci();
 
     </script>
 </body>

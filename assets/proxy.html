@@ -5,39 +5,76 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+ 
+
 
 </head>
 <body>
-    <script src="https://unpkg.com/fast-levenshtein@2.0.6/levenshtein.js"></script>
+  <script src="https://unpkg.com/fast-levenshtein@2.0.6/levenshtein.js"></script>
     <script>
-        const target = {
-            init: "git init",
-            status: "git status",
-            commit: "git commit"
-        }
+      
+      const target = {
+        red: "red",
+        gree: "green",
+        blue: "blue",
+      }
+      
+      const handler = {
 
-         
-        const handler = {
-          get(obj,prop){
-            if(prop in obj){
-              return obj[prop]
+            get(obj,prop){
+              
+              if(prop in obj){
+                return obj[prop]; 
               }
 
-              const sugerencia = Object.keys(obj).find(key => {
-            return Levenshtein.get(key, prop) <= 3;
-            })
+              const suggestion = Object.keys(obj).find(key => {
+                   return Levenshtein.get(key, prop) <=3;
+              })          
+              if(suggestion){
+                console.log(`${prop} no se encuentra, es ${suggestion}`)
+              }
+              return obj[prop]
+            }
+          }
+          const p = new Proxy(target,handler);
+          console.log(p.red)
+          console.log(p.reed)
+      
+      
+      // const target = {
+      //       red: 'Rojo',
+      //       blue: 'Azul',
+      //       green: 'Verde'
+      //   }
+      //   // handler es un objeto con funciones (trampa) que definen las acciones a seguir cuando se accede al objeto supervisado
+      //   const handler = {
+      //       // get es una función que recibe el objeto supervisado y la propiedad a la que se quiere acceder
+      //       get(objeto, propiedad) {
+      //           if (propiedad in objeto) {
+      //               // si la propiedad existe, pues retornamos su valor
+      //               return objeto[propiedad]
+      //           }
 
-          if(sugerencia){
-             console.log(`${prop} no se encontro. querras decir  ${sugerencia}? `)
+      //           // Si llega hasta aqui, significa que la propiedad invocada sobre el objeto no existe, por tanto, vamos a ver si podemos retornar una sugerencia
+               
 
-           }
+      //           if (sugerencia) {
+      //               console.log(`${propiedad} no se encontró, Quizá tu querías decir ${sugerencia}`)
+      //           }
 
-           return obj[prop]
-         }
-        }         
-          
-          const p = new Proxy(target,handler)
+      //           // RETORNAMOS EL VALOR DE LA PROPIEDAD INEXISTENTE (por buenas prácticas)
+      //           return objeto[propiedad]
+      //       }
+      //   }
+
+
+      //   // 1. Proxy() es un constructor (que siempre debe utilizarse con new) que recibe dos parámetros:
+      //           // targer: un objeto sobre el cual se producirá la supervisión
+      //           // handler: un objeto con una serie de manejadores para cada una de las diferentes operaciones que se realizarán sobre el objeto pasado en el primer parámetro
+      //   // 2. Este constructor devuelve el objeto pasado como parámetro, pero que está siendo interceptado. Es importante tener en cuenta que Proxy() no copia el objeto, devuelve el mismo objeto, pero supervisado.
+      //   const p = new Proxy(target, handler)
+
+
 
     </script>
 </body>
