@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <script>
+        console.log(`this ${this}`)
+        //this en el scope global es window
+        //output this.html:13 this [object Window]
+
+        function whoIsthis()
+        {
+            return this;
+        }
+        console.log(`${whoIsthis()}`)
+        //output this.html:20 [object Window] nos sigue regresando windows 
+
+        
+        function whoIsThisStrict(){
+            "use strict";
+            //use strict nos sirve para solucionar errores que cualquier programados le puede pasar javascript nos va intentar ayudarnos los errrores van a salir temprano 
+            return this;
+        }
+        const person = {
+            //this se refiere a un objeto, ese objeto es el que actualmente está ejecutando un pedazo de código.
+            
+            name: "Gabriel",
+            saludar: function (){
+                console.log(`hola soy ${this.name}`)
+            }
+        }
+        
+        function Persona(name,apellido) {
+            this.name = name;
+            this.apellido = apellido; 
+            
+        }
+        Persona.prototype.saludar = function()
+        {
+            console.log(`me llamo ${this.name} ${this.apellido}`)
+        }
+        const Angela = new Persona('Angela','Poison');
+        Angela.saludar();
+        console.log(`${whoIsThisStrict()}`)
+
+    </script>
+</body>
+</html>
